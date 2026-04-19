@@ -66,7 +66,7 @@ const getUserByIdentifier = async (req, res) => {
       : { username: identifier };
     
     const user = await User.findOne(query)
-      .select('-password -email -security -emailVerificationToken -kycStatus')
+      .select('-password -email -security -emailVerificationToken')
       .populate('creatorProfile.featuredTrack')
       .populate('remixerProfile.featuredRemix');
     

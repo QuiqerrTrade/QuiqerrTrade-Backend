@@ -125,23 +125,6 @@ const userSchema = new mongoose.Schema(
       country: String,
     },
 
-    // ============================================
-    // KYC VERIFICATION STATUS
-    // ============================================
-    kycStatus: {
-      type: String,
-      enum: ['not_submitted', 'pending', 'approved', 'rejected', 'expired'],
-      default: 'not_submitted',
-    },
-    kycLevel: {
-      type: Number,
-      enum: [0, 1, 2, 3],
-      default: 0,
-    },
-    kycSubmittedAt: Date,
-    kycApprovedAt: Date,
-    kycExpiresAt: Date,
-    kycRejectionReason: String,
 
     // ============================================
     // PROFILE INFORMATION
@@ -572,7 +555,6 @@ userSchema.index({ 'personalInfo.fullName': 1 });
 userSchema.index({ 'creatorProfile.level': 1 });
 userSchema.index({ 'remixerProfile.level': 1 });
 userSchema.index({ 'stats.followers': -1 });
-userSchema.index({ kycStatus: 1 });
 userSchema.index({ accountStatus: 1 });
 
 // ============================================
@@ -583,9 +565,6 @@ userSchema.virtual('age').get(function() {
   return Math.floor((Date.now() - this.personalInfo.dateOfBirth) / (1000 * 60 * 60 * 24 * 365.25));
 });
 
-userSchema.virtual('isKYCVerified').get(function() {
-  return this.kycStatus === 'approved' && this.kycLevel >= 2;
-});
 
 userSchema.virtual('fullLocation').get(function() {
   const parts = [];

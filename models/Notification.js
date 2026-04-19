@@ -23,7 +23,6 @@ const notificationSchema = new mongoose.Schema(
         'comment',
         'badge_earned',
         'level_up',
-        'kyc_update',
         'security_alert',
         'system',
       ],

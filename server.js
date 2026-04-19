@@ -10,18 +10,16 @@ const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 
-const connectDB = require('./src/config/database');
-const errorHandler = require('./src/middleware/errorHandler');
+const connectDB = require('./config/database');
+const errorHandler = require('./middleware/errorHandler');
 
 // Route imports
-const authRoutes = require('./src/routes/authRoutes');
-const userRoutes = require('./src/routes/userRoutes');
-const kycRoutes = require('./src/routes/kycRoutes');
-const trackRoutes = require('./src/routes/trackRoutes');
-const remixRoutes = require('./src/routes/remixRoutes');
-const marketRoutes = require('./src/routes/marketRoutes');
-const aiRoutes = require('./src/routes/aiRoutes');
-const notificationRoutes = require('./src/routes/notificationRoutes');
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const trackRoutes = require('./routes/trackRoutes');
+const remixRoutes = require('./routes/remixRoutes');
+const marketRoutes = require('./routes/marketRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 
 const app = express();
 
@@ -34,7 +32,7 @@ app.use(helmet({
 }));
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://remix-market.com', 'https://app.remix-market.com'] 
+    ? ['https://quiqerrtrade.vercel.app', 'https://quiqerrtrade.come'] 
     : ['http://localhost:3000'],
   credentials: true,
 }));
@@ -62,7 +60,6 @@ app.use(morgan('combined'));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/kyc', kycRoutes);
 app.use('/api/tracks', trackRoutes);
 app.use('/api/remixes', remixRoutes);
 app.use('/api/market', marketRoutes);
@@ -87,7 +84,7 @@ const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
   console.log(`
 ╔════════════════════════════════════════════════════╗
-║     🎧 REMIX MARKET BACKEND - PRODUCTION 🎧        ║
+║     🎧 QUIQERRTRADE MARKET BACKEND - PRODUCTION 🎧        ║
 ║                                                    ║
 ║     Server running on port ${PORT}                    ║
 ║     Environment: ${process.env.NODE_ENV}                       ║
@@ -96,7 +93,6 @@ const server = app.listen(PORT, () => {
 ║                                                    ║
 ║     Features:                                      ║
 ║     ✅ User Authentication (Wallet + Email)        ║
-║     ✅ KYC Verification                            ║
 ║     ✅ Creator/Remixer Profiles                    ║
 ║     ✅ Social Features (Follow/Like)               ║
 ║     ✅ Tokenized Music Trading                     ║

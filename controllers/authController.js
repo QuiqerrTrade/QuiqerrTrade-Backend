@@ -1,6 +1,5 @@
-const User = require('../models/User');
+const User = require('../models/UserModel');
 const Session = require('../models/Session');
-const KYC = require('../models/KYC');
 const Referral = require('../models/Referral');
 const { StatusCodes } = require('http-status-codes');
 const jwt = require('jsonwebtoken');
@@ -308,7 +307,6 @@ const verifyEmail = async (req, res) => {
     user.emailVerified = true;
     user.emailVerificationToken = undefined;
     user.emailVerificationExpires = undefined;
-    user.kycLevel = Math.max(user.kycLevel, 1);
     await user.save();
     
     res.status(StatusCodes.OK).json({
